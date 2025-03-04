@@ -9,8 +9,8 @@ export default function Header() {
                 <HeaderLink url="./">
                     Home
                 </HeaderLink>
-                <HeaderLink url="./cadastromenu">
-                    Cadastro Menu
+                <HeaderLink url="./ProductList">
+                    Listagem Produtos
                 </HeaderLink>
             </nav>
         </header>
