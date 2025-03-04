@@ -32,7 +32,7 @@ root.render(
   <React.StrictMode>
     <Header />
     <Sidebar/>
-    <ProductList products={[products]} />
+    <ProductList products={products} />
     <Footer />
   </React.StrictMode>
 );
