@@ -1,10 +1,19 @@
-.sidebar {
+.sidebar{
     width: 250px;
-    background-color: #333;
-    color: white;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    
+    transition: width 0.3s;
+
+}
+
+.sidebar .collapsed{
+    width: 80px;
+}
+
+.sidebar .navlink{
+    padding: 10px;
+    font-size: 16px;
+}
+
+.siderbar .collapsed .navlink{
+    font-size: 14px;
+    padding-left: 25px;
 }
