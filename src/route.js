@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Header from "./components/Header"
 import Footer from "./components/Footer"
@@ -6,6 +6,8 @@ import ProductList from "./components/Grid";
 import Sidebar from "./components/Sidebar";
 import ProductForm from "./pages/ProductForm";
 import Login from "./pages/Login";
+import UsuarioLogadoProvider, { UsuarioContext } from "./contexts/Usuario";
+import { useContext } from "react";
 
 const products = [
     {
@@ -28,25 +30,52 @@ const products = [
     },
 ];
 
+function PrivateRoute({ children }) {
+debugger;
+    const usuario = useContext(UsuarioContext);
+    if (!usuario["usuario"].logado) {
+        return <Navigate to="/login" replace />
+    } 
+    
+    return children;
+
+}
+
+
 export default function AppRoutes() {
+    debugger;
     return (
         <BrowserRouter>
-            <Header />
-            <div className="d-flex">
-                <Sidebar />
-
-                <div className="flex-grow-1 p.4">
-
-                    <Routes>
-                        <Route path="/" element={<Home />} > </Route>
-                        <Route path="/Grid" element={<ProductList products={products} />} />
-                        <Route path="/CadastroProduto" element={<ProductForm />} />
-                        <Route path="/Login" element={<Login />} />
-                    </Routes>
-
-                </div>
-            </div>
-            <Footer />
+            <UsuarioLogadoProvider>
+                <Routes>
+                    <Route path="/Login" element={<Login />} />
+                    <Route path="/*"
+                        element={
+                            <PrivateRoute>
+                                <Routes>
+                                <Route path="/" element={<Home />} > </Route>
+                                <Route path="/Grid" element={<ProductList products={products} />} />
+                                <Route path="/CadastroProduto" element={<ProductForm />} />
+                                </Routes>
+                            </PrivateRoute>
+                        }
+                    />
+                </Routes>
+            </UsuarioLogadoProvider>
         </BrowserRouter>
     )
+
+
+
+
+    /*    < Header />
+       <div className="d-flex">
+           <Sidebar />
+
+           <div className="flex-grow-1 p.4">
+           <Footer />
+           </div>
+
+       </div> */
 }
+
