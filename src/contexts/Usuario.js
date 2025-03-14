@@ -24,11 +24,18 @@ export function useUsuarioContext() {
         return setUsuario(usuarioLogin);
     }
 
-    return {
-        usuario, 
-        login
+    function logout() {
+        setUsuario([]);
     }
 
-   
+
+
+    return {
+        usuario,
+        login,
+        logout
+    }
+
+
 
 }

@@ -31,12 +31,12 @@ const products = [
 ];
 
 function PrivateRoute({ children }) {
-debugger;
+    debugger;
     const usuario = useContext(UsuarioContext);
     if (!usuario["usuario"].logado) {
         return <Navigate to="/login" replace />
-    } 
-    
+    }
+
     return children;
 
 }
@@ -52,11 +52,13 @@ export default function AppRoutes() {
                     <Route path="/*"
                         element={
                             <PrivateRoute>
+                                <ProtectedLayout>
                                 <Routes>
-                                <Route path="/" element={<Home />} > </Route>
-                                <Route path="/Grid" element={<ProductList products={products} />} />
-                                <Route path="/CadastroProduto" element={<ProductForm />} />
+                                    <Route path="/" element={<Home />} > </Route>
+                                    <Route path="/Grid" element={<ProductList products={products} />} />
+                                    <Route path="/CadastroProduto" element={<ProductForm />} />
                                 </Routes>
+                                </ProtectedLayout>
                             </PrivateRoute>
                         }
                     />
@@ -65,17 +67,24 @@ export default function AppRoutes() {
         </BrowserRouter>
     )
 
+    function ProtectedLayout({ children }) {
+        return (
+
+            <>
+                < Header />
+                <div className="d-flex">
+                    <Sidebar />
+                    <div className="flex-grow-1 p.4">
+                    {children}
+                    </div>
+                </div>
+                <Footer />
+            </>
+        )
+
+    }
 
 
 
-    /*    < Header />
-       <div className="d-flex">
-           <Sidebar />
-
-           <div className="flex-grow-1 p.4">
-           <Footer />
-           </div>
-
-       </div> */
 }
 
