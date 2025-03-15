@@ -31,7 +31,6 @@ const products = [
 ];
 
 function PrivateRoute({ children }) {
-    debugger;
     const usuario = useContext(UsuarioContext);
     if (!usuario["usuario"].logado) {
         return <Navigate to="/login" replace />
@@ -43,7 +42,6 @@ function PrivateRoute({ children }) {
 
 
 export default function AppRoutes() {
-    debugger;
     return (
         <BrowserRouter>
             <UsuarioLogadoProvider>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { UsuarioContext, useUsuarioContext } from "../../contexts/Usuario";
 import { useNavigate } from "react-router-dom";
+/* import axios from "axios"; */
 
 
 export default function Login() {
@@ -10,16 +11,44 @@ export default function Login() {
     const { login } = useUsuarioContext(UsuarioContext);
     const navigate = useNavigate();
 
-    
-    function loginSubmit(e) {
-        e.preventDefault();
-        if (usuarioInformado === "Andrei" && senha === "1") {
-            login({ nome: usuarioInformado, usuarioInformado, logado: true })
-            navigate("/")
-        } else {
-            alert("Usuário ou senha inválido")
-        }
 
+    async function loginSubmit(e) {
+        e.preventDefault();
+
+        try {
+            //Exemplo Fetch
+
+            /* const response = await fetch("https://viacep.com.br/ws/"+usuarioInformado+"/json/", {
+                method: "GET"
+            });
+            if (!response.ok) {
+                alert("Deu erro");
+            }
+            const data = await response.json(); */
+            // Fim Exelplo Fetch
+
+            //Exemplo Axios
+
+          /*   axios.get("https://viacep.com.br/ws/"+usuarioInformado+"/json/")
+                .then((response) => {
+                    setTimeout(a => { setUsuario(response.data.logradouro) }, 2000);
+                });
+
+            const responseAxios = await axios.get("https://viacep.com.br/ws/"+usuarioInformado+"/json/");
+            alert(JSON.stringify(responseAxios.data)); */
+
+            //Fim Exemplo Axios 
+
+            if (usuarioInformado === "Andrei" && senha === "1") {
+                login({ nome: usuarioInformado, usuarioInformado, logado: true })
+                navigate("/")
+            } else {
+                alert("Usuário ou senha inválido")
+            }
+
+        } catch (error) {
+            alert("Problema na comunicação com o servidor" + (error))
+        }
 
     }
     return (
