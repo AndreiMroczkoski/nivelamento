@@ -1,0 +1,65 @@
+{
+  "produtos": [
+    {
+      "id": 1,
+      "nome": "Produto 1",
+      "preco": 29.99,
+      "categoria": "Categoria A"
+    },
+    {
+      "id": 2,
+      "nome": "Produto 2",
+      "preco": 49.99,
+      "categoria": "Categoria B"
+    },
+    {
+      "id": 3,
+      "nome": "Produto 3",
+      "preco": 19.99,
+      "categoria": "Categoria C"
+    },
+    {
+      "id": "",
+      "nome": "teset",
+      "preco": "1",
+      "categoria": "teste"
+    },
+    {
+      "id": "",
+      "nome": "teste",
+      "preco": "1",
+      "categoria": "testeee"
+    },
+    {
+      "id": "",
+      "nome": "teste",
+      "preco": "1",
+      "categoria": "testeee"
+    },
+    {
+      "id": "",
+      "nome": "teste",
+      "preco": "1",
+      "categoria": "testeeeee"
+    },
+    {
+      "id": "",
+      "nome": "teste",
+      "preco": "123",
+      "categoria": "eterf"
+    },
+    {
+      "id": "",
+      "nome": "test",
+      "preco": "123",
+      "categoria": "tqf"
+    }
+  ],
+  "usuarios": [
+    {
+      "id": 1,
+      "usuario": "Andrei",
+      "senha": "1"
+    }
+  ]
+}

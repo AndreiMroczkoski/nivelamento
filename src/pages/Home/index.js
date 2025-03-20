@@ -4,9 +4,9 @@ export default function Home() {
             <h1 className="fw-bold">
                 Bem vindo ao Sistema
                 <p className="fs-4 text-muted">
-                    "Desiste, a vida é triste."
+                    "Gerenciamento de Estoque"
                 </p>
             </h1>
         </div>
     )
-}
+} 
