@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import style from './ProductForm.module.css'
+import style from './CadastroProduto.module.css'
 import axios from 'axios';
 
-export default function ProductForm() {
-
-    
+export default function CadastroProduto() {
 
 
     const [produtoInformado, setProduto] = useState({
@@ -16,7 +14,6 @@ export default function ProductForm() {
       
    
       const cadastrarProduto = async (e) => {
-        debugger;
         e.preventDefault();
         try {
           const response = await axios.post("http://localhost:3001/produtos",produtoInformado);

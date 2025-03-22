@@ -4,11 +4,13 @@ import Header from "./components/Header"
 import Footer from "./components/Footer"
 import ProductList from "./components/Grid";
 import Sidebar from "./components/Sidebar";
-import ProductForm from "./pages/ProductForm";
+import ProductForm from "./pages/CadastroProduto";
 import Login from "./pages/Login";
 import UsuarioLogadoProvider, { UsuarioContext } from "./contexts/Usuario";
 import { useContext } from "react";
 import Grid from "./components/Grid";
+import CadastroProduto from "./pages/CadastroProduto";
+import MovimentarProduto from "./pages/MovimentarProduto";
 
 
 function PrivateRoute({ children }) {
@@ -35,7 +37,8 @@ export default function AppRoutes() {
                                 <Routes>
                                     <Route path="/" element={<Home />} > </Route>
                                     <Route path="/Grid" element={<Grid/>} />
-                                    <Route path="/CadastroProduto" element={<ProductForm />} />
+                                    <Route path="/CadastroProduto" element={<CadastroProduto />} />
+                                    <Route path="/MovimentarProduto" element={<MovimentarProduto />} />
                                 </Routes>
                                 </ProtectedLayout>
                             </PrivateRoute>

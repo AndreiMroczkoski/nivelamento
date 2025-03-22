@@ -1,19 +1,23 @@
 {
+  "movimentacoes":[
+    
+  ],
+  
   "produtos": [
     {
-      "id": 1,
+      "id": "1",
       "nome": "Produto 1",
       "preco": 29.99,
       "categoria": "Categoria A"
     },
     {
-      "id": 2,
+      "id": "2",
       "nome": "Produto 2",
       "preco": 49.99,
       "categoria": "Categoria B"
     },
     {
-      "id": 3,
+      "id": "3",
       "nome": "Produto 3",
       "preco": 19.99,
       "categoria": "Categoria C"
@@ -53,11 +57,23 @@
       "nome": "test",
       "preco": "123",
       "categoria": "tqf"
+    },
+    {
+      "id": "",
+      "nome": "Produto Teste",
+      "preco": "123",
+      "categoria": "Categoria Teste"
+    },
+    {
+      "id": "",
+      "nome": "Teste 123123",
+      "preco": "1312321",
+      "categoria": "241412"
     }
   ],
   "usuarios": [
     {
-      "id": 1,
+      "id": "1",
       "usuario": "Andrei",
       "senha": "1"
     }

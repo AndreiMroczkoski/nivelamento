@@ -27,6 +27,12 @@
                      </Link>
                  </li>
 
+                 <li className="nav-item ">
+                     <Link to='/MovimentarProduto' className="nav-link text-light">
+                         Movimentações
+                     </Link>
+                 </li>
+
                  <li className="nav-item" >
                      <a className="nav-link text-light"
                          data-bs-toggle="collapse"
