@@ -49,7 +49,7 @@ export default function MovimentarProduto() {
         <div className="move-product-page">
             <h2>Movimentar Produto</h2>
             <form onSubmit={handleSubmit}>
-                <label>Produto: {produto.name}</label>
+                <label>Produto: {produto.nome}</label>
 
                 <label>Quantidade:</label>
                 <input
