@@ -1,0 +1,77 @@
+{
+  "movimentacoes": [
+    {
+      "id": "5f52"
+    },
+    {
+      "id": "86e9",
+      "quantidade": 41,
+      "tipo": "entrada",
+      "data": "23/03/2025, 15:52:52"
+    },
+    {
+      "id": "1594",
+      "quantidade": 41,
+      "tipo": "entrada",
+      "data": "23/03/2025, 15:52:54"
+    },
+    {
+      "id": "eb13",
+      "quantidade": 41,
+      "tipo": "entrada",
+      "data": "23/03/2025, 15:52:53"
+    },
+    {
+      "id": "91ea",
+      "quantidade": 41,
+      "tipo": "entrada",
+      "data": "23/03/2025, 15:52:55"
+    },
+    {
+      "id": "4d2d",
+      "quantidade": 41,
+      "tipo": "entrada",
+      "data": "23/03/2025, 15:52:55"
+    },
+    {
+      "id": "e3bf",
+      "quantidade": 41,
+      "tipo": "entrada",
+      "data": "23/03/2025, 15:52:55"
+    }
+  ],
+  "produtos": [
+    {
+      "id": "1",
+      "nome": "Produto 1",
+      "preco": 29.99,
+      "categoria": "Categoria A"
+      
+    },
+    {
+      "id": "2",
+      "nome": "Produto 2",
+      "preco": 49.99,
+      "categoria": "Categoria B"
+    },
+    {
+      "id": "3",
+      "nome": "Produto 3",
+      "preco": 19.99,
+      "categoria": "Categoria C"
+    },
+    {
+      "id": "",
+      "nome": "Produto Teste 01",
+      "preco": "15",
+      "categoria": "Categoria AA"
+    }
+  ],
+  "usuarios": [
+    {
+      "id": "1",
+      "usuario": "Andrei",
+      "senha": "1"
+    }
+  ]
+}

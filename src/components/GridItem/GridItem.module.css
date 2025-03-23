@@ -1,0 +1,18 @@
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f4f4f4;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.botao {
+    padding: 5px 10px;
+    margin-left: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
