@@ -1,28 +1,21 @@
 {
   "movimentacoes": [
     {
-      "id": "bd61",
-      "produto": "Boneca",
-      "quantidade": 150,
+      "id": "b1ca",
+      "produto": "Mouse",
+      "quantidade": 50,
       "tipo": "entrada",
-      "data": "23/03/2025, 22:24:15"
+      "data": "23/03/2025, 23:11:58"
     },
     {
-      "id": "8f8f",
-      "produto": "Boneca",
-      "quantidade": 150,
-      "tipo": "entrada",
-      "data": "23/03/2025, 22:24:22"
+      "id": "fa29",
+      "produto": "Mouse",
+      "quantidade": 20,
+      "tipo": "saida",
+      "data": "23/03/2025, 23:12:14"
     }
   ],
   "produtos": [
-    {
-      "id": "1234567",
-      "nome": "Boneca",
-      "preco": "120.00",
-      "categoria": "Brinquedos",
-      "quantidade": "300"
-    },
     {
       "id": "123456789",
       "nome": "Controle Xbox",
