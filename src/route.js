@@ -9,6 +9,9 @@ import { useContext } from "react";
 import Grid from "./components/Grid";
 import CadastroProduto from "./pages/CadastroProduto";
 import MovimentarProduto from "./pages/MovimentarProduto";
+import ListaMovimentacoes from "./pages/ListaMovimentacoes";
+import CadastroUsuario from "./pages/CadastroUsuario";
+import ListaUsuarios from "./pages/ListaUsuarios";
 
 
 function PrivateRoute({ children }) {
@@ -36,7 +39,10 @@ export default function AppRoutes() {
                                     <Route path="/" element={<Home />} > </Route>
                                     <Route path="/Grid" element={<Grid/>} />
                                     <Route path="/CadastroProduto" element={<CadastroProduto />} />
+                                    <Route path="/CadastroUsuario" element={<CadastroUsuario />} />
                                     <Route path="/MovimentarProduto/:id" element={<MovimentarProduto />} />
+                                    <Route path="/ListaMovimentacoes" element={<ListaMovimentacoes />} />
+                                    <Route path="/ListaUsuarios" element={<ListaUsuarios />} />
                                 </Routes>
                                 </ProtectedLayout>
                             </PrivateRoute>
@@ -50,16 +56,17 @@ export default function AppRoutes() {
     function ProtectedLayout({ children }) {
         return (
 
-            <>
-                < Header />
-                <div className="d-flex">
-                    <Sidebar />
-                    <div className="flex-grow-1 p.4">
+            <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+            <Header />
+            <div style={{ display: 'flex', flexGrow: 1 }}>
+                <Sidebar />
+                <div style={{ flexGrow: 1, overflowY: 'auto', padding: '1rem' }}>
                     {children}
-                    </div>
                 </div>
-                <Footer />
-            </>
+            </div>
+            <Footer />
+            
+        </div>
         )
 
     }
