@@ -13,6 +13,13 @@
       "quantidade": 20,
       "tipo": "saida",
       "data": "23/03/2025, 23:12:14"
+    },
+    {
+      "id": "d578",
+      "produto": "Controle Xbox",
+      "quantidade": 50,
+      "tipo": "entrada",
+      "data": "28/03/2025, 19:41:48"
     }
   ],
   "produtos": [
@@ -21,7 +28,7 @@
       "nome": "Controle Xbox",
       "preco": "400.00",
       "categoria": "Informática",
-      "quantidade": ""
+      "quantidade": "50"
     }
   ],
   "usuarios": [
