@@ -20,6 +20,27 @@
       "quantidade": 50,
       "tipo": "entrada",
       "data": "28/03/2025, 19:41:48"
+    },
+    {
+      "id": "be50",
+      "produto": "Controle Xbox",
+      "quantidade": 20,
+      "tipo": "entrada",
+      "data": "28/03/2025, 21:52:11"
+    },
+    {
+      "id": "560d",
+      "produto": "Controle Xbox",
+      "quantidade": 20,
+      "tipo": "saida",
+      "data": "28/03/2025, 21:52:18"
+    },
+    {
+      "id": "9980",
+      "produto": "Controle Xbox",
+      "quantidade": 20,
+      "tipo": "entrada",
+      "data": "28/03/2025, 22:20:56"
     }
   ],
   "produtos": [
@@ -28,7 +49,7 @@
       "nome": "Controle Xbox",
       "preco": "400.00",
       "categoria": "Informática",
-      "quantidade": "50"
+      "quantidade": "70"
     }
   ],
   "usuarios": [
