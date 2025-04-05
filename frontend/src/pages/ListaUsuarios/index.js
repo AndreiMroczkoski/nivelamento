@@ -13,7 +13,7 @@ export default function ListaUsuarios() {
     useEffect(() => {
         const buscarUsuarios = async () => {
             try {
-                const response = await axios.get("http://localhost:3001/usuarios");
+                const response = await axios.get("http://localhost:8080/usuario");
                 setUsuarios(response.data);
             } catch (error) {
                 console.error("Erro ao buscar usuários:", error);
@@ -36,9 +36,11 @@ export default function ListaUsuarios() {
 
     const excluirUsuario = async () => {
         try {
-            await axios.delete(`http://localhost:3001/usuarios/${usuarioParaExcluir.id}`);
+
+            debugger;
+            await axios.delete(`http://localhost:8080/usuario/${usuarioParaExcluir.id}`);
             setAlerta({ message: "Usuário excluído com sucesso!", type: "success" });
-            const response = await axios.get("http://localhost:3001/usuarios");
+            const response = await axios.get("http://localhost:8080/usuario");
             setUsuarios(response.data);
             fecharModalExcluir();
         } catch (error) {

@@ -37,7 +37,7 @@ public class UsuarioController {
     @GetMapping("{id}")
     public Usuario listarPorId(@PathVariable Long id) {
 
-        var retornoListarUsuarioPorId= usuarioRepository.findById(id).get();
+        var retornoListarUsuarioPorId = usuarioRepository.findById(id).get();
 
         return retornoListarUsuarioPorId;
     }
@@ -50,17 +50,12 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    public List<Usuario> deletar(@PathVariable Long id) {
+    public ResponseEntity<?> deletar(@PathVariable Long id) {
 
+       usuarioRepository.deleteById(id);
 
-        return new ArrayList<>();
+        return ResponseEntity.ok().build();
     }
-
-
-
-
-
-
 
 
 }

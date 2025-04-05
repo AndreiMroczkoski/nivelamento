@@ -7,7 +7,6 @@ import Alerta from '../../components/Alerta';
 
 export default function CadastroUsuario() {
     const [usuarioInformado, setUsuario] = useState({
-        id: "",
         usuario: "",
         senha: "",
         cep: "",
@@ -22,14 +21,15 @@ export default function CadastroUsuario() {
     const cadastrarUsuario = async (e) => {
         e.preventDefault();
 
-        if (!usuarioInformado.usuario || !usuarioInformado.id ||  !usuarioInformado.senha || !usuarioInformado.cep 
+        if (!usuarioInformado.usuario ||  !usuarioInformado.senha || !usuarioInformado.cep 
             || !usuarioInformado.logradouro || !usuarioInformado.bairro || !usuarioInformado.cidade || !usuarioInformado.estado ) {
             setAlerta({ message: "Por favor, preencha todos os campos.", type: "warning" });
             return;
         }
 
         try {
-            const response = await axios.post("http://localhost:3001/usuarios", usuarioInformado);
+           
+            const response = await axios.post("http://localhost:8080/usuario", usuarioInformado);
             console.log("Usuario criado:", response.data);
             setAlerta({ message: "Usuário cadastrado com sucesso!", type: "success" });
             setTimeout(() => navigate("/ListaUsuarios"), 2000);
@@ -37,7 +37,7 @@ export default function CadastroUsuario() {
             console.error("Erro ao criar usuário:", error);
             setAlerta({ message: "Falha ao cadastrar o usuário.", type: "danger" });
         }
-    };
+    };  
 
     const buscarCep = async (cep) => {
         try {
@@ -80,15 +80,6 @@ export default function CadastroUsuario() {
                         <div className="card-body">
                             <form onSubmit={cadastrarUsuario}>
                                 <div className="row">
-                                    <div className="col-md-4 mb-3">
-                                        <label className="form-label">ID de Usuário</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            value={usuarioInformado.id}
-                                            onChange={(e) => setUsuario({ ...usuarioInformado, id: e.target.value })}
-                                        />
-                                    </div>
                                     <div className="col-md-4 mb-3">
                                         <label className="form-label">Nome do Usuario</label>
                                         <input
