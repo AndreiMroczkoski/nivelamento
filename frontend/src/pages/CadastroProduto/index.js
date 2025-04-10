@@ -6,7 +6,6 @@ import Alerta from '../../components/Alerta';
 
 export default function CadastroProduto() {
     const [produtoInformado, setProduto] = useState({
-        id: "",
         nome: "",
         preco: "",
         categoria: "",
@@ -18,13 +17,14 @@ export default function CadastroProduto() {
     const cadastrarProduto = async (e) => {
         e.preventDefault();
 
-        if (!produtoInformado.nome || !produtoInformado.id || !produtoInformado.preco || !produtoInformado.categoria) {
+        if (!produtoInformado.nome || !produtoInformado.preco || !produtoInformado.categoria) {
             setAlerta({ message: "Por favor, preencha todos os campos obrigatórios.", type: "warning" });
             return;
         }
 
         try {
-            const response = await axios.post("http://localhost:3001/produtos", produtoInformado);
+            debugger;
+            const response = await axios.post("http://localhost:8080/produto", produtoInformado);
             console.log("Produto criado:", response.data);
             setAlerta({ message: "Produto cadastrado com sucesso!", type: "success" });
             setTimeout(() => navigate("/Grid"), 2000);
@@ -49,15 +49,6 @@ export default function CadastroProduto() {
                         </div>
                         <div className="card-body">
                             <form onSubmit={cadastrarProduto}>
-                                <div className="mb-3">
-                                    <label className="form-label">Código EAN*</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        value={produtoInformado.id}
-                                        onChange={(e) => setProduto({ ...produtoInformado, id: e.target.value })}
-                                    />
-                                </div>
                                 <div className="mb-3">
                                     <label className="form-label">Nome do Produto*</label>
                                     <input

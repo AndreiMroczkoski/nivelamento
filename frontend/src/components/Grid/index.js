@@ -12,7 +12,7 @@ export default function Grid() {
     }, []);
     const buscarProduto = async () => {
         try {
-            const response = await axios.get('http://localhost:3001/produtos');
+            const response = await axios.get('http://localhost:8080/produto');
             setProduto(response.data);
         } catch (error) {
             console.error("Erro ao buscar produtos:", error);
@@ -44,7 +44,7 @@ export default function Grid() {
             <table className="table table-striped table-bordered mb-5">
                 <thead>
                     <tr>
-                        <th className="col-2">Código EAN</th>
+                        <th className="col-2">ID</th>
                         <th className="col-2">Produto</th>
                         <th className="col-2">Preço</th>
                         <th className="col-2">Categoria</th>

@@ -24,7 +24,7 @@ export default function GridItem({ produto, onExcluirSucesso, onExcluirErro }) {
 
     const excluirProduto = async () => {
         try {
-            await axios.delete(`http://localhost:3001/produtos/${produtoParaExcluir.id}`);
+            await axios.delete(`http://localhost:8080/produto/${produtoParaExcluir.id}`);
             onExcluirSucesso("Produto excluído com sucesso!");
             
         } catch (error) {
