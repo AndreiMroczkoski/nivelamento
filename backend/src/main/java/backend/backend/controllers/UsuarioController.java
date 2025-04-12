@@ -1,11 +1,14 @@
 package backend.backend.controllers;
 
+import backend.backend.configuration.SecurityConfiguration;
 import backend.backend.models.entities.Usuario;
 import backend.backend.models.repository.UsuarioRepository;
+import backend.backend.services.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +21,16 @@ import java.util.List;
 @Tag(name="Usuários",description = "Endereço responsável pelo controle de usuários")
 public class UsuarioController {
 
+
+
+
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private UsuarioService usuarioService;
+
+
 
     @PostMapping
     @Operation(summary = "Salvar usuário",description = "Método responsável por salvar usuário")
@@ -31,20 +42,23 @@ public class UsuarioController {
     }
 
 
-    @GetMapping
+    @GetMapping("/listar")
     @Operation(summary = "Listar usuário",description = "Método responsável por listar usuário")
     public List<Usuario> listar() {
+
 
         return usuarioRepository.findAll();
     }
 
-    @GetMapping("{id}")
+    @GetMapping
     @Operation(summary = "Listar usuário por Id",description = "Método responsável por listar usuário por Id")
-    public Usuario listarPorId(@PathVariable Long id) {
+    public Usuario listarPorId() {
 
-        var retornoListarUsuarioPorId = usuarioRepository.findById(id).get();
-
+        var usuarioLogado = usuarioService.UsuarioLogado();
+        var retornoListarUsuarioPorId = usuarioRepository.findById(usuarioLogado.getId()).get();
         return retornoListarUsuarioPorId;
+
+        //deu errado!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
 
     @PutMapping

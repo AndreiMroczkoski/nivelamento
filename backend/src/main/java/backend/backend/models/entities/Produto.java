@@ -11,6 +11,13 @@ import lombok.Setter;
 @Table(name = "Produto")
 public class Produto {
 
+    public Produto(){}
+
+    public Produto(String nome, Usuario usuario){
+        this.usuario = usuario;
+        this.nome = nome;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
@@ -21,6 +28,9 @@ public class Produto {
     private String categoria;
 
     private Long quantidade;
+
+    @ManyToOne
+    private Usuario usuario;
 
     }
 

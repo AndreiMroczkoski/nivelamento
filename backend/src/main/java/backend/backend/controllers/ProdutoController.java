@@ -1,9 +1,10 @@
 package backend.backend.controllers;
 
 
+import backend.backend.object.ProdutoRequest;
 import backend.backend.models.entities.Produto;
-import backend.backend.models.entities.Usuario;
 import backend.backend.models.repository.ProdutoRepository;
+import backend.backend.services.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,18 @@ public class ProdutoController {
     @Autowired
     private ProdutoRepository produtoRepository;
 
+    @Autowired
+    private UsuarioService usuarioService;
 
     @PostMapping
     @Operation(summary = "Salvar Produto", description = "Método responsável por salvar produto")
-    public ResponseEntity<?> salvar(@RequestBody Produto produto) {
+    public ResponseEntity<?> salvar(@RequestBody ProdutoRequest produto) {
 
-        var retornoSalvarProduto = produtoRepository.save(produto);
+        var usuarioLogado = usuarioService.UsuarioLogado();
+        var produtoSave = new Produto(produto.nome(),usuarioLogado);
+
+
+        var retornoSalvarProduto = produtoRepository.save(produtoSave);
 
         return ResponseEntity.ok(retornoSalvarProduto);
     }
