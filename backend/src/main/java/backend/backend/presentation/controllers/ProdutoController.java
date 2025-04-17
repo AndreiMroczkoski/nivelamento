@@ -1,10 +1,10 @@
-package backend.backend.controllers;
+package backend.backend.presentation.controllers;
 
 
-import backend.backend.object.ProdutoRequest;
-import backend.backend.models.entities.Produto;
-import backend.backend.models.repository.ProdutoRepository;
-import backend.backend.services.UsuarioService;
+import backend.backend.application.object.ProdutoRequest;
+import backend.backend.domain.entities.Produto;
+import backend.backend.domain.repository.ProdutoRepository;
+import backend.backend.application.services.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;

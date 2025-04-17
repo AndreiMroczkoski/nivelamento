@@ -1,20 +1,17 @@
-package backend.backend.services;
+package backend.backend.application.services;
 
-import backend.backend.object.LoginRequest;
+import backend.backend.application.object.LoginRequest;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.concurrent.ExecutionException;
 
 @Service
 public class TokenService {

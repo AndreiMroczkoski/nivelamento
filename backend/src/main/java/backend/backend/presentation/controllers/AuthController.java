@@ -1,9 +1,8 @@
-package backend.backend.controllers;
+package backend.backend.presentation.controllers;
 
 
-import backend.backend.models.entities.Usuario;
-import backend.backend.object.LoginRequest;
-import backend.backend.services.TokenService;
+import backend.backend.application.object.LoginRequest;
+import backend.backend.application.services.TokenService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;

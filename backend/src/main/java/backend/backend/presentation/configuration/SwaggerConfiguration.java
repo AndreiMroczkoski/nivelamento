@@ -1,4 +1,4 @@
-package backend.backend.configuration;
+package backend.backend.presentation.configuration;
 
 
 import io.swagger.v3.oas.models.Components;

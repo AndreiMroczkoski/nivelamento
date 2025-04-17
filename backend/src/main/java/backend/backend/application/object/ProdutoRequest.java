@@ -1,4 +1,4 @@
-package backend.backend.object;
+package backend.backend.application.object;
 
 public record ProdutoRequest (String nome){
 }

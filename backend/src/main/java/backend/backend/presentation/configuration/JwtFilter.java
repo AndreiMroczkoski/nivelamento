@@ -1,6 +1,6 @@
-package backend.backend.configuration;
+package backend.backend.presentation.configuration;
 
-import backend.backend.services.TokenService;
+import backend.backend.application.services.TokenService;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Collections;
 
 @Component
