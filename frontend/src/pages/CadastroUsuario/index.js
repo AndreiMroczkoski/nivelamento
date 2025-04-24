@@ -20,6 +20,7 @@ export default function CadastroUsuario() {
 
     const cadastrarUsuario = async (e) => {
         e.preventDefault();
+        debugger;
 
         if (!usuarioInformado.usuario ||  !usuarioInformado.senha || !usuarioInformado.cep 
             || !usuarioInformado.logradouro || !usuarioInformado.bairro || !usuarioInformado.cidade || !usuarioInformado.estado ) {

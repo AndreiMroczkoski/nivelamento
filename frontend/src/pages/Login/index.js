@@ -25,9 +25,13 @@ export default function Login() {
         }
 
         try {
-            debugger;
-            const responseAxios = await axios.get(
-                `http://localhost:8080/usuario?usuario=${usuarioInformado}&senha=${senha}`
+            
+            const responseAxios = await axios.post(
+                `http://localhost:8080/auth`,
+                {
+                    usuario: usuarioInformado,
+                    senha: senha
+                  }
             );
 
             if (responseAxios.data.length > 0) {
