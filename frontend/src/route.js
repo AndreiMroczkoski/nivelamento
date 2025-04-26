@@ -4,23 +4,24 @@ import Header from "./components/Header"
 import Footer from "./components/Footer"
 import Sidebar from "./components/Sidebar";
 import Login from "./pages/Login";
-import UsuarioLogadoProvider, { UsuarioContext } from "./contexts/Usuario";
-import { useContext } from "react";
 import Grid from "./components/Grid";
 import CadastroProduto from "./pages/CadastroProduto";
 import MovimentarProduto from "./pages/MovimentarProduto";
 import ListaMovimentacoes from "./pages/ListaMovimentacoes";
 import CadastroUsuario from "./pages/CadastroUsuario";
 import ListaUsuarios from "./pages/ListaUsuarios";
+import { Provider, useSelector } from "react-redux";
+import store from "./redux/store";
+
 
 
 function PrivateRoute({ children }) {
-    const usuario = useContext(UsuarioContext);
-    if (!usuario["usuario"].logado) {
-        return <Navigate to="/login" replace />
-    }
 
-    return children;
+    const token = useSelector(state => state.auth.token);
+
+
+        return token? children: <Navigate to="/login" replace />;
+  
 
 }
 
@@ -28,7 +29,7 @@ function PrivateRoute({ children }) {
 export default function AppRoutes() {
     return (
         <BrowserRouter>
-            <UsuarioLogadoProvider>
+            <Provider store={store}>
                 <Routes>
                     <Route path="/Login" element={<Login />} />
                     <Route path="/*"
@@ -49,7 +50,7 @@ export default function AppRoutes() {
                         }
                     />
                 </Routes>
-            </UsuarioLogadoProvider>
+            </Provider>
         </BrowserRouter>
     )
 

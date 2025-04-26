@@ -1,9 +1,12 @@
-import { UsuarioContext, useUsuarioContext } from '../../contexts/Usuario';
+
+import { useDispatch } from 'react-redux';
 import style from './header.module.css'
+import { logout } from '../../redux/authSlice';
 
 export default function Header() {
 
-    const { logout } = useUsuarioContext(UsuarioContext);
+    const dispatch = useDispatch();
+
 
     return (    
 
@@ -11,7 +14,7 @@ export default function Header() {
            <nav className='d-flex'>
                 <button className="btn btn-light " onClick={(e) => {
                     e.preventDefault();
-                    logout();
+                    dispatch(logout());
                 }}>
                     Logout
                 </button>

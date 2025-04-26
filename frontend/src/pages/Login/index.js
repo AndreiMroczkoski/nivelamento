@@ -1,18 +1,21 @@
 import { useState } from "react";
-import { UsuarioContext, useUsuarioContext } from "../../contexts/Usuario";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import Alerta from "../../components/Alerta";
+import { authService } from "../../service/auth.service";
+import { useDispatch } from "react-redux";
+import { setToken } from "../../redux/authSlice";
 
 export default function Login() {
     const [usuarioInformado, setUsuario] = useState("");
     const [senha, setSenha] = useState("");
-    const { login } = useUsuarioContext(UsuarioContext);
     const navigate = useNavigate();
     const [alerta, setAlerta] = useState(null);
-
+    const dispatch = useDispatch();
+    
     async function loginSubmit(e) {
+
         e.preventDefault();
+
 
         if (!senha) {
             setAlerta({ message: "Por favor, insira a senha.", type: "warning" });
@@ -25,17 +28,21 @@ export default function Login() {
         }
 
         try {
+
+            debugger;
             
-            const responseAxios = await axios.post(
-                `http://localhost:8080/auth`,
+            const response = await authService.login(
                 {
                     usuario: usuarioInformado,
                     senha: senha
                   }
             );
 
-            if (responseAxios.data.length > 0) {
-                login({ nome: usuarioInformado, usuarioInformado, logado: true });
+            if (response.length > 0) {
+
+                dispatch(setToken({nome: usuarioInformado, token: response, logado: true  }));
+
+
                 navigate("/");
             } else {
                 setAlerta({ message: "Usuário ou senha inválido!", type: "danger" });

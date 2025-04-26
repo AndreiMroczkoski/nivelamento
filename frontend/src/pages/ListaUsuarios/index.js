@@ -39,7 +39,7 @@ export default function ListaUsuarios() {
 
             debugger;
             const responseDelete = await axios.delete(`http://localhost:8080/usuario/${usuarioParaExcluir.id}`);
-            if (responseDelete.status==200){
+            if (responseDelete.status===200){
                 setAlerta({ message: "Usuário excluído com sucesso!", type: "success" });
             } else {
                 setAlerta({ message: "Falha ao excluir o usuário. " + responseDelete.data, type: "danger" });
