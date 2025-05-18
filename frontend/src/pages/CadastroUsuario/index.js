@@ -30,7 +30,7 @@ export default function CadastroUsuario() {
 
         try {
            
-            const response = await axios.post("http://localhost:8080/usuario", usuarioInformado);
+            const response = await axios.post("http://localhost:8080/usuario/salvar", usuarioInformado);
             console.log("Usuario criado:", response.data);
             setAlerta({ message: "Usuário cadastrado com sucesso!", type: "success" });
             setTimeout(() => navigate("/ListaUsuarios"), 2000);

@@ -11,8 +11,10 @@ export default function Grid() {
         buscarProduto();
     }, []);
     const buscarProduto = async () => {
+     
         try {
-            const response = await axios.get('http://localhost:8080/produto');
+               debugger;
+            const response = await axios.get('http://localhost:8080/produto/listar');
             setProduto(response.data);
         } catch (error) {
             console.error("Erro ao buscar produtos:", error);

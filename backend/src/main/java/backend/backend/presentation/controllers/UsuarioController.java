@@ -22,7 +22,7 @@ public class UsuarioController {
     private IUsuarioService usuarioService;
 
 
-    @PostMapping
+    @PostMapping("/salvar")
     @Operation(summary = "Salvar usuário", description = "Método responsável por salvar usuário")
     public ResponseEntity<?> salvar(@RequestBody UsuarioSalvarRequest usuario) {
 

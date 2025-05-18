@@ -35,7 +35,8 @@ public class JwtFilter extends OncePerRequestFilter {
                 || path.startsWith("/webjars")
                 || path.equals("/logout")
                 || path.equals("/usuario")
-                || path.equals("/register")) {
+                || path.equals("/register")
+                || path.equals("/produto")) {
             filterChain.doFilter(request, response);
             return;
         }

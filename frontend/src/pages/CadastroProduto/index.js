@@ -24,7 +24,7 @@ export default function CadastroProduto() {
 
         try {
             debugger;
-            const response = await axios.post("http://localhost:8080/produto", produtoInformado);
+            const response = await axios.post("http://localhost:8080/produto/salvar", produtoInformado);
             console.log("Produto criado:", response.data);
             setAlerta({ message: "Produto cadastrado com sucesso!", type: "success" });
             setTimeout(() => navigate("/Grid"), 2000);

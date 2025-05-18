@@ -2,6 +2,13 @@ package backend.backend.presentation.controllers;
 
 
 import backend.backend.application.object.ProdutoRequest;
+import backend.backend.application.object.produto.ProdutoListarResponse;
+import backend.backend.application.object.produto.ProdutoSalvarRequest;
+import backend.backend.application.object.usuario.UsuarioListarResponse;
+import backend.backend.application.object.usuario.UsuarioSalvarRequest;
+import backend.backend.application.services.ProdutoService;
+import backend.backend.application.services.interfaces.IProdutoService;
+import backend.backend.application.services.interfaces.IUsuarioService;
 import backend.backend.domain.entities.Produto;
 import backend.backend.domain.repository.ProdutoRepository;
 import backend.backend.application.services.UsuarioService;
@@ -20,42 +27,42 @@ public class ProdutoController {
 
 
     @Autowired
-    private ProdutoRepository produtoRepository;
+    private IProdutoService ProdutoService;
 
     @Autowired
     private UsuarioService usuarioService;
-
-    @PostMapping
-    @Operation(summary = "Salvar Produto", description = "Método responsável por salvar produto")
-    public ResponseEntity<?> salvar(@RequestBody ProdutoRequest produto) {
-
-        var usuarioLogado = usuarioService.UsuarioLogado();
-        var produtoSave = new Produto(produto.nome(),usuarioLogado);
+    @Autowired
+    private ProdutoService produtoService;
 
 
-        var retornoSalvarProduto = produtoRepository.save(produtoSave);
+    @PostMapping("/salvar")
+    @Operation(summary = "Salvar produto", description = "Método responsável por salvar produto")
+    public ResponseEntity<?> salvar(@RequestBody ProdutoSalvarRequest produto) {
+
+        var retornoSalvarProduto = ProdutoService.SalvarProduto(produto);
 
         return ResponseEntity.ok(retornoSalvarProduto);
     }
 
-    @GetMapping
-    @Operation(summary = "Listar Produto", description = "Método responsável por listar produto")
-    public List<Produto> listar() {
+    @GetMapping("/listar")
+    @Operation(summary = "Listar produto", description = "Método responsável por listar produto")
+    public List<ProdutoListarResponse> listar() {
 
-        return produtoRepository.findAll();
+
+        return produtoService.ListarProduto();
     }
 
-    @GetMapping("{id}")
+   /* @GetMapping("{id}")
     @Operation(summary = "Listar Produto por Id", description = "Método responsável por listar produto por Id")
     public Produto listarPorId(@PathVariable Long id) {
 
         var retornoListarProdutoPorId = produtoRepository.findById(id).get();
 
         return retornoListarProdutoPorId;
-    }
+    }*/
 
 
-    @PutMapping
+ /*   @PutMapping
     @Operation(summary = "Editar Produto", description = "Método responsável por editar produto")
     public ResponseEntity<?> editar(@RequestBody Produto produto) {
 
@@ -71,7 +78,7 @@ public class ProdutoController {
         produtoRepository.deleteById(id);
 
         return ResponseEntity.ok().build();
-    }
+    }*/
 
 
 }
