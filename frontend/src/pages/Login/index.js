@@ -28,8 +28,6 @@ export default function Login() {
         }
 
         try {
-
-            debugger;
             
             const response = await authService.login(
                 {

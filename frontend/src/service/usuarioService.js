@@ -21,4 +21,6 @@ const consultarPorId = async (id) => {
 
 };
 
-export const cadastroService = {login, cadastrar, consultar, consultarPorId};
+
+
+export const usuarioService = {cadastrar, consultar, consultarPorId};

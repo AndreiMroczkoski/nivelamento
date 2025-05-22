@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 import Alerta from '../../components/Alerta';
+import { produtoService } from '../../service/produtoService';
 
 export default function CadastroProduto() {
     const [produtoInformado, setProduto] = useState({
@@ -16,15 +16,14 @@ export default function CadastroProduto() {
 
     const cadastrarProduto = async (e) => {
         e.preventDefault();
-
+        
         if (!produtoInformado.nome || !produtoInformado.preco || !produtoInformado.categoria) {
             setAlerta({ message: "Por favor, preencha todos os campos obrigatórios.", type: "warning" });
             return;
         }
 
         try {
-            debugger;
-            const response = await axios.post("http://localhost:8080/produto/salvar", produtoInformado);
+            const response = await produtoService.cadastrarProdutos(produtoInformado);
             console.log("Produto criado:", response.data);
             setAlerta({ message: "Produto cadastrado com sucesso!", type: "success" });
             setTimeout(() => navigate("/Grid"), 2000);

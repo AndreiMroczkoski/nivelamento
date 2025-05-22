@@ -1,6 +1,7 @@
 package backend.backend.application.services;
 
 
+import backend.backend.application.object.LoginRequest;
 import backend.backend.application.object.usuario.UsuarioListarResponse;
 import backend.backend.application.object.usuario.UsuarioSalvarRequest;
 import backend.backend.application.services.interfaces.IUsuarioService;
@@ -22,6 +23,15 @@ public class UsuarioService implements IUsuarioService {
     public Usuario UsuarioLogado() {
         var auth = SecurityContextHolder.getContext().getAuthentication();
         return usuarioRepository.findByUsuario(auth.getName()).orElse(null);
+    }
+
+    public Usuario ValidarUsuario(LoginRequest loginRequest) {
+        var usuario = usuarioRepository.findByUsuarioAndSenha(loginRequest.usuario(),loginRequest.senha()).orElse(null);
+        if (usuario != null) {
+            return usuario;
+        } else {
+            return null;
+        }
     }
 
     @Override
