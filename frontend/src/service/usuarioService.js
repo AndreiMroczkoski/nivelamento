@@ -1,26 +1,31 @@
 import api from "./api";
 
-const cadastrar = async (cadastroRequest) => {
+const cadastrarUsuario = async (ususarioInformado) => {
 
-    const res = await api.post("usuario",cadastroRequest);
+    const res = await api.post("/usuario/salvar",ususarioInformado);
     return res.data;
 
 };
 
-const consultar = async () => {
-
-    const res = await api.post("usuario");
+const deletarUsuario = async (id) => {
+    debugger;
+    const res = await api.delete("/usuario/deletar/"+id);
     return res.data;
 
 };
 
-const consultarPorId = async (id) => {
+const listarUsuarios = async () => {
 
-    const res = await api.post("usuario/"+id);
+    const res = await api.get("/usuario/listar");
     return res.data;
 
 };
 
+const listarPorId = async (id) => {
 
+    const res = await api.post("/usuario/listarPorId"+id);
+    return res.data;
 
-export const usuarioService = {cadastrar, consultar, consultarPorId};
+};
+
+export const usuarioService = {cadastrarUsuario, listarUsuarios, listarPorId, deletarUsuario};

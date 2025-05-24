@@ -7,6 +7,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -27,16 +28,21 @@ public class JwtFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
+        if (HttpMethod.OPTIONS.matches(request.getMethod())) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            return;
+        }
+
         String path = request.getRequestURI();
         if (path.equals("/auth")
                 || path.startsWith("/swagger-ui")
                 || path.startsWith("/v3/api-docs")
-                || path.startsWith("swagger-resources")
+                || path.startsWith("/swagger-resources")
                 || path.startsWith("/webjars")
                 || path.equals("/logout")
-                || path.equals("/usuario")
-                || path.equals("/register")
-                || path.equals("/produto")) {
+                || path.equals("/usuario/")
+                || path.equals("/register/")
+                || path.equals("/produto/")) {
             filterChain.doFilter(request, response);
             return;
         }

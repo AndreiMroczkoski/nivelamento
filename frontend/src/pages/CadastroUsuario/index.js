@@ -3,6 +3,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 import Alerta from '../../components/Alerta';
+import { usuarioService } from '../../service/usuarioService';
 
 
 export default function CadastroUsuario() {
@@ -30,7 +31,7 @@ export default function CadastroUsuario() {
 
         try {
            
-            const response = await axios.post("http://localhost:8080/usuario/salvar", usuarioInformado);
+            const response = await usuarioService.cadastrarUsuario(usuarioInformado);
             console.log("Usuario criado:", response.data);
             setAlerta({ message: "Usuário cadastrado com sucesso!", type: "success" });
             setTimeout(() => navigate("/ListaUsuarios"), 2000);

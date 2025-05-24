@@ -25,10 +25,13 @@ public class UsuarioController {
     @PostMapping("/salvar")
     @Operation(summary = "Salvar usuário", description = "Método responsável por salvar usuário")
     public ResponseEntity<?> salvar(@RequestBody UsuarioSalvarRequest usuario) {
-
+        try {
         var retornoSalvarUsuario = usuarioService.SalvarUsuario(usuario);
 
         return ResponseEntity.ok(retornoSalvarUsuario);
+    } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao salvar usuário: " + e.getMessage());
+        }
     }
 
 
@@ -39,37 +42,15 @@ public class UsuarioController {
 
         return usuarioService.ListarUsuario();
     }
-/*
-    @GetMapping
-    @Operation(summary = "Listar usuário por Id",description = "Método responsável por listar usuário por Id")
-    public Usuario listarPorId() {
 
-        var usuarioLogado = usuarioService.UsuarioLogado();
-        var retornoListarUsuarioPorId = usuarioRepository.findById(usuarioLogado.getId()).get();
-        return retornoListarUsuarioPorId;
-    }
-
-    @PutMapping
-    @Operation(summary = "Editar usuário",description = "Método responsável por editar usuário")
-    public ResponseEntity<?> editar(@RequestBody Usuario usuario) {
-
-
-        return ResponseEntity.ok().build();
-    }*/
-
-    @DeleteMapping("/{id}")
-    @Operation(summary = "Deletar usuário", description = "Método responsável por Deletar usuário")
+    @DeleteMapping("/deletar/{id}")
+    @Operation(summary = "Deletar usuário", description = "Método responsável por Deletar um usuário pelo seu ID.")
     public ResponseEntity<?> deletar(@PathVariable Long id) {
-
         try {
-            // falta fazer a regra
+            usuarioService.deletarUsuario(id);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-
+            return ResponseEntity.badRequest().body("Erro ao deletar usuário: " + e.getMessage());
         }
-
     }
-
-
 }

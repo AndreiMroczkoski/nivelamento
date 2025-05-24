@@ -8,6 +8,7 @@
     import backend.backend.domain.entities.Usuario;
     import backend.backend.domain.repository.ProdutoRepository;
     import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.http.ResponseEntity;
     import org.springframework.stereotype.Service;
 
     import java.util.List;
@@ -28,6 +29,18 @@
             return lResult;
         }
 
+        public ResponseEntity<String> deletarProduto(Long id) {
+            try {
+
+                produtoRepository.deleteById(id);
+
+                return ResponseEntity.ok().build();
+
+            } catch (Exception e) {
+
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        }
 
         public List<ProdutoListarResponse> ListarProduto() {
 

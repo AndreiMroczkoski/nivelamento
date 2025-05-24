@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Alerta from '../../components/Alerta';
 import ModalConfirmarExclusao from '../../components/modalConfirmarExclusao';
+import { usuarioService } from '../../service/usuarioService';
 
 export default function ListaUsuarios() {
     const [usuarios, setUsuarios] = useState([]);
@@ -12,9 +12,9 @@ export default function ListaUsuarios() {
 
     useEffect(() => {
         const buscarUsuarios = async () => {
-            try {
-                const response = await axios.get("http://localhost:8080/usuario/listar");
-                setUsuarios(response.data);
+            try { 
+                const response = await usuarioService.listarUsuarios();
+                setUsuarios(response);
             } catch (error) {
                 console.error("Erro ao buscar usuários:", error);
                 setAlerta({ message: "Falha ao buscar usuários.", type: "danger" });
@@ -36,17 +36,16 @@ export default function ListaUsuarios() {
 
     const excluirUsuario = async () => {
         try {
-
             debugger;
-            const responseDelete = await axios.delete(`http://localhost:8080/usuario/${usuarioParaExcluir.id}`);
-            if (responseDelete.status===200){
+            const responseDelete = await usuarioService.deletarUsuario(usuarioParaExcluir.id);
+            if (usuarioParaExcluir || !usuarioParaExcluir.id === null || !usuarioParaExcluir.id === undefined){
                 setAlerta({ message: "Usuário excluído com sucesso!", type: "success" });
             } else {
-                setAlerta({ message: "Falha ao excluir o usuário. " + responseDelete.data, type: "danger" });
+                setAlerta({ message: "Falha ao excluir o usuário. " + responseDelete, type: "danger" });
             }
           
-            const response = await axios.get("http://localhost:8080/usuario/listar");
-            setUsuarios(response.data);
+            const response = await usuarioService.listarUsuarios();
+            setUsuarios(response);
             fecharModalExcluir();
         } catch (error) {
             console.error("Erro ao excluir usuário:", error);

@@ -1,7 +1,7 @@
 
-    import GridItem from '../GridItem';
-    import { useState, useEffect } from 'react';
-    import Alerta from '../Alerta';
+import GridItem from '../GridItem';
+import { useState, useEffect } from 'react';
+import Alerta from '../Alerta';
 import { produtoService } from '../../service/produtoService';
     
 

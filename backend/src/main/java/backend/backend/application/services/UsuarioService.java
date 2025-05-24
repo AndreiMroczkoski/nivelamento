@@ -8,6 +8,8 @@ import backend.backend.application.services.interfaces.IUsuarioService;
 import backend.backend.domain.entities.Usuario;
 import backend.backend.domain.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +42,20 @@ public class UsuarioService implements IUsuarioService {
         var lResult = usuarioRepository.save(new Usuario(usuario));
 
         return lResult;
+    }
+
+
+    public ResponseEntity<String> deletarUsuario(Long id) {
+        try {
+
+            usuarioRepository.deleteById(id);
+
+            return ResponseEntity.ok().build();
+
+        } catch (Exception e) {
+
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @Override

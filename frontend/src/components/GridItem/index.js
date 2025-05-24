@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
 import ModalConfirmarExclusao from '../modalConfirmarExclusao';
+import { produtoService } from '../../service/produtoService';
 
 export default function GridItem({ produto, onExcluirSucesso, onExcluirErro }) {
     const navigate = useNavigate();
     const [modalAberto, setModalAberto] = useState(false);
     const [produtoParaExcluir, setProdutoParaExcluir] = useState(null);
+    
 
     const movimentar = () => {
         navigate(`/MovimentarProduto/${produto.id}`);
-    };
+    };  
 
     const abrirModalExcluir = () => {
         setProdutoParaExcluir(produto);
@@ -24,7 +25,8 @@ export default function GridItem({ produto, onExcluirSucesso, onExcluirErro }) {
 
     const excluirProduto = async () => {
         try {
-            await axios.delete(`http://localhost:8080/produto/${produtoParaExcluir.id}`);
+            debugger;
+            await produtoService.deletarProdutos(produtoParaExcluir.id);
             onExcluirSucesso("Produto excluído com sucesso!");
             
         } catch (error) {

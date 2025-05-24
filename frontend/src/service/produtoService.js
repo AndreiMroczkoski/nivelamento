@@ -14,4 +14,11 @@ const cadastrarProdutos = async (produtoInformado) => {
 
 };
 
-export const produtoService = {listarProdutos, cadastrarProdutos};
+const deletarProdutos = async (id) => {
+
+    const res = await api.delete("/produto/deletar/"+id);
+    return res.data;
+
+};
+
+export const produtoService = {listarProdutos, cadastrarProdutos, deletarProdutos};

@@ -1,16 +1,9 @@
 package backend.backend.presentation.controllers;
 
 
-import backend.backend.application.object.ProdutoRequest;
 import backend.backend.application.object.produto.ProdutoListarResponse;
 import backend.backend.application.object.produto.ProdutoSalvarRequest;
-import backend.backend.application.object.usuario.UsuarioListarResponse;
-import backend.backend.application.object.usuario.UsuarioSalvarRequest;
 import backend.backend.application.services.ProdutoService;
-import backend.backend.application.services.interfaces.IProdutoService;
-import backend.backend.application.services.interfaces.IUsuarioService;
-import backend.backend.domain.entities.Produto;
-import backend.backend.domain.repository.ProdutoRepository;
 import backend.backend.application.services.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,11 +20,6 @@ public class ProdutoController {
 
 
     @Autowired
-    private IProdutoService ProdutoService;
-
-    @Autowired
-    private UsuarioService usuarioService;
-    @Autowired
     private ProdutoService produtoService;
 
 
@@ -39,7 +27,7 @@ public class ProdutoController {
     @Operation(summary = "Salvar produto", description = "Método responsável por salvar produto")
     public ResponseEntity<?> salvar(@RequestBody ProdutoSalvarRequest produto) {
 
-        var retornoSalvarProduto = ProdutoService.SalvarProduto(produto);
+        var retornoSalvarProduto = produtoService.SalvarProduto(produto);
 
         return ResponseEntity.ok(retornoSalvarProduto);
     }
@@ -48,37 +36,18 @@ public class ProdutoController {
     @Operation(summary = "Listar produto", description = "Método responsável por listar produto")
     public List<ProdutoListarResponse> listar() {
 
-
         return produtoService.ListarProduto();
     }
 
-   /* @GetMapping("{id}")
-    @Operation(summary = "Listar Produto por Id", description = "Método responsável por listar produto por Id")
-    public Produto listarPorId(@PathVariable Long id) {
-
-        var retornoListarProdutoPorId = produtoRepository.findById(id).get();
-
-        return retornoListarProdutoPorId;
-    }*/
-
-
- /*   @PutMapping
-    @Operation(summary = "Editar Produto", description = "Método responsável por editar produto")
-    public ResponseEntity<?> editar(@RequestBody Produto produto) {
-
-
-        return ResponseEntity.ok().build();
-    }
-
-
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deletar/{id}")
     @Operation(summary = "Deletar Produto", description = "Método responsável por deletar produto")
     public ResponseEntity<?> deletar(@PathVariable Long id) {
 
-        produtoRepository.deleteById(id);
+        try {
+            return produtoService.deletarProduto(id);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao deletar produto: " + e.getMessage());
+        }
 
-        return ResponseEntity.ok().build();
-    }*/
-
-
+    }
 }
