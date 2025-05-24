@@ -1,6 +1,7 @@
 package backend.backend.application.services;
 
 import backend.backend.application.object.LoginRequest;
+import backend.backend.domain.entities.Usuario;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -28,13 +29,13 @@ public class TokenService {
 
 
 
-    public String gerarToken(LoginRequest loginRequest) {
+    public String gerarToken(Usuario loginRequest) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
 
             String token = JWT.create()
                     .withIssuer(emissor)
-                    .withSubject(loginRequest.usuario())
+                    .withSubject(loginRequest.getId().toString())
                     .withExpiresAt(this.gerarDataExpicaracao())
                     .sign(algorithm);
 

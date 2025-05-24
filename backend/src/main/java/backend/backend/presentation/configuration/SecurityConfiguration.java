@@ -29,7 +29,8 @@ public class SecurityConfiguration {
                        "swagger-resources/**",
                         "/webjars/**",
                         "/auth/**",
-                        "/usuario/**"
+                        "/usuario/**",
+                        "/produto/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
