@@ -38,5 +38,12 @@ public class Produto {
     @ManyToOne
     private Usuario usuario;
 
+    public Long getQuantidadeEmEstoque() {
+        return quantidade;
     }
+
+    public void setQuantidadeEmEstoque(long l) {
+        this.quantidade = l;
+    }
+}
 

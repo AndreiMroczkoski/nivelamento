@@ -30,7 +30,8 @@ public class SecurityConfiguration {
                         "/webjars/**",
                         "/auth/**",
                         "/usuario/**",
-                        "/produto/**"
+                        "/produto/**",
+                        "/movimentacoes/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

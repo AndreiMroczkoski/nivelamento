@@ -42,7 +42,8 @@ public class JwtFilter extends OncePerRequestFilter {
                 || path.equals("/logout")
                 || path.equals("/usuario/")
                 || path.equals("/register/")
-                || path.equals("/produto/")) {
+                || path.equals("/produto/")
+                || path.equals("/movimentacoes/")){
             filterChain.doFilter(request, response);
             return;
         }

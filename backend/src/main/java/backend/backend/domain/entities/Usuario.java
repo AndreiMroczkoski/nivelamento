@@ -37,4 +37,7 @@ public class Usuario {
     private String cidade;
     private String estado;
 
+    public String getNome() {
+        return usuario;
+    }
 }
