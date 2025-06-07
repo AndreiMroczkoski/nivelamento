@@ -35,7 +35,7 @@ public class AuthController {
         var validacaoUsuario = usuarioService.ValidarUsuario(loginRequest);
 
         if (validacaoUsuario == null) {
-            ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário ou senha incorretos!");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário ou senha incorretos!");
         }
         var ResultGerarToken = tokenService.gerarToken(validacaoUsuario);
         return ResponseEntity.ok(ResultGerarToken);
