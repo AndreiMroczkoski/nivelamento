@@ -13,6 +13,7 @@ import backend.backend.domain.repository.UsuarioRepository;
 import backend.backend.application.services.interfaces.IMovimentacaoService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,11 +34,16 @@ public class MovimentacaoService implements IMovimentacaoService {
 
     @Override
     public MovimentacaoResponse registrarMovimentacao(MovimentacaoRequest request) {
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!(principal instanceof Usuario)) {
+            throw new IllegalStateException("O usuário autenticado não é uma instância de usuario válida.");
+        }
+        Usuario usuarioLogado = (Usuario) principal;
+
         Produto produto = produtoRepository.findById(request.produtoId())
                 .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado com ID: " + request.produtoId()));
 
-        Usuario usuario = usuarioRepository.findById(request.usuarioId())
-                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com ID: " + request.usuarioId()));
 
 
         if (request.quantidadeMovimentada() == null || request.quantidadeMovimentada() <= 0) {
@@ -48,7 +54,7 @@ public class MovimentacaoService implements IMovimentacaoService {
 
         if (TipoMovimentacao.saida.equals(request.tipo())) {
             if (estoqueAtual < request.quantidadeMovimentada()) {
-                throw new IllegalStateException("Estoque insuficiente para o produto: " + produto.getNome());
+                throw new IllegalStateException("Estoque insuficiente para o produto. ");
             }
             produto.setQuantidadeEmEstoque(estoqueAtual - request.quantidadeMovimentada());
         } else if (TipoMovimentacao.entrada.equals(request.tipo())) {
@@ -56,10 +62,9 @@ public class MovimentacaoService implements IMovimentacaoService {
         }
         produtoRepository.save(produto);
 
-        // 5. Criar e salvar a movimentação
         Movimentacoes novaMovimentacao = new Movimentacoes();
         novaMovimentacao.setProduto(produto);
-        novaMovimentacao.setUsuario(usuario);
+        novaMovimentacao.setUsuario(usuarioLogado);
         novaMovimentacao.setQuantidadeMovimentada(request.quantidadeMovimentada());
         novaMovimentacao.setTipo(request.tipo());
         novaMovimentacao.setDataHoraMovimentacao(LocalDateTime.now());

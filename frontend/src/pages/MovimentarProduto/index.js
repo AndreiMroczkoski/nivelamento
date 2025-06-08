@@ -43,20 +43,14 @@ export default function MovimentarProduto() {
             return;
         }
 
-        // Verificação para garantir que há um usuário logado
-        if (!usuario || !usuario.id) {
-            setAlerta({ message: "Usuário não identificado.", type: "danger" });
-            return;
-        }
-
+    
         setIsSubmitting(true);
 
         const movimentacaoRequest = {
+            useUsuarioContext: usuario.id,
             produtoId: parseInt(id),
             quantidadeMovimentada: parseInt(quantidade),
             tipo: tipo,
-            // 3. Usando o ID do usuário que veio do seu contexto!
-            usuarioId: usuario.id, 
         };
 
         try {
@@ -64,11 +58,11 @@ export default function MovimentarProduto() {
             await movimentacaoService.registrarMovimentacao(movimentacaoRequest);
 
             setAlerta({ message: "Movimentação registrada com sucesso!", type: "success" });
-            setTimeout(() => navigate("/movimentacoes"), 2000);
+            setTimeout(() => navigate("/Grid"), 2000);
 
         } catch (error) {
             console.error("Erro ao registrar movimentação:", error);
-            const errorMessage = error.response?.data?.message || "Falha ao registrar movimentação.";
+            const errorMessage = error.response.data|| "Falha ao registrar movimentação.";
             setAlerta({ message: errorMessage, type: "danger" });
         } finally {
             setIsSubmitting(false);
@@ -91,7 +85,7 @@ export default function MovimentarProduto() {
                                 <form onSubmit={submit}>
                                     <div className="mb-4 text-center">
                                         <h4 className="font-weight-bold">{produto.nome}</h4>
-                                        <h6>Estoque Atual: {produto.quantidadeEmEstoque}</h6>
+                                        <h6>Estoque Atual: {produto.quantidade}</h6>
                                     </div>
 
                                     <div className="mb-3">

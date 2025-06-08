@@ -23,7 +23,7 @@ public class UsuarioService implements IUsuarioService {
     UsuarioRepository usuarioRepository;
 
     public Usuario UsuarioLogado() {
-        var auth = SecurityContextHolder.getContext().getAuthentication();
+        var auth = SecurityContextHolder. getContext().getAuthentication();
         return usuarioRepository.findByUsuario(auth.getName()).orElse(null);
     }
 
