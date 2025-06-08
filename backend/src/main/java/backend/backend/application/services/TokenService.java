@@ -2,11 +2,13 @@ package backend.backend.application.services;
 
 import backend.backend.application.object.LoginRequest;
 import backend.backend.domain.entities.Usuario;
+import backend.backend.infra.external.EmailService;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,9 @@ public class TokenService {
     @Value("${spring.emissor}")
     private String emissor;
 
+    @Autowired
+    private EmailService emailService;
+
 
 
     public String gerarToken(Usuario loginRequest) {
@@ -38,6 +43,7 @@ public class TokenService {
                     .withSubject(loginRequest.getId().toString())
                     .withExpiresAt(this.gerarDataExpicaracao())
                     .sign(algorithm);
+            emailService.enviarEmailComTemplate("andreiteixeiramm@gmail.com", "TESTE", "EMAIL PARA TESTE");
 
             return token;
         } catch (Exception e) {
