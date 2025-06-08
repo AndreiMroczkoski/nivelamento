@@ -27,7 +27,7 @@ public class AuthController {
     @Autowired
     private UsuarioService usuarioService;
 
-    
+
     @PostMapping
     @Operation (summary = "Login do usuário", description = "Login do usuário que retorna um token jwt válido")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
@@ -39,5 +39,7 @@ public class AuthController {
         }
         var ResultGerarToken = tokenService.gerarToken(validacaoUsuario);
         return ResponseEntity.ok(ResultGerarToken);
+
+
     }
 }

@@ -4,6 +4,7 @@ import Alerta from "../../components/Alerta";
 import { authService } from "../../service/auth.service";
 import { useDispatch } from "react-redux";
 import { setToken } from "../../redux/authSlice";
+import { useUsuarioContext } from "../../contexts/Usuario";
 
 export default function Login() {
     const [usuarioInformado, setUsuario] = useState("");
@@ -11,6 +12,7 @@ export default function Login() {
     const navigate = useNavigate();
     const [alerta, setAlerta] = useState(null);
     const dispatch = useDispatch();
+    const { login } = useUsuarioContext();
     
     async function loginSubmit(e) {
 
@@ -40,6 +42,8 @@ export default function Login() {
 
                 dispatch(setToken({nome: usuarioInformado, token: response, logado: true  }));
 
+                
+                login(usuarioInformado);
 
                 navigate("/");
             } else {

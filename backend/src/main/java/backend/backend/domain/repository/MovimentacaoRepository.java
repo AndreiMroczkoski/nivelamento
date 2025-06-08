@@ -9,6 +9,7 @@ import java.util.List;
 @Repository
 public interface MovimentacaoRepository extends JpaRepository<Movimentacoes, Long> {
 
+    List<Movimentacoes> findAllByOrderByDataHoraMovimentacaoDesc();
 
     List<Movimentacoes> findByProduto(Produto produto);
 

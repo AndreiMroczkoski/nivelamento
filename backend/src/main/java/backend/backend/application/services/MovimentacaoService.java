@@ -78,7 +78,7 @@ public class MovimentacaoService implements IMovimentacaoService {
 
     @Override
     public List<MovimentacaoResponse> listar() {
-        return movimentacaoRepository.findAll().stream()
+        return movimentacaoRepository.findAllByOrderByDataHoraMovimentacaoDesc().stream()
                 .map(this::convertToResponseWithDetails)
                 .collect(Collectors.toList());
     }

@@ -7,6 +7,7 @@
     import backend.backend.domain.entities.Produto;
     import backend.backend.domain.entities.Usuario;
     import backend.backend.domain.repository.ProdutoRepository;
+    import jakarta.persistence.EntityNotFoundException;
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.http.ResponseEntity;
     import org.springframework.stereotype.Service;
@@ -54,5 +55,18 @@
                     ))
                     .toList();
             return lResult;
+        }
+
+        public ProdutoListarResponse buscarPorId(Long id) {
+            Produto produto = produtoRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado com ID: " + id));
+
+            return new ProdutoListarResponse(
+                    produto.getId(),
+                    produto.getNome(),
+                    produto.getPreco(),
+                    produto.getCategoria(),
+                    produto.getQuantidade()
+            );
         }
     }
