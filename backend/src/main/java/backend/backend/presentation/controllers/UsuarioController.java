@@ -4,9 +4,11 @@ import backend.backend.application.object.usuario.UsuarioListarResponse;
 import backend.backend.application.object.usuario.UsuarioSalvarRequest;
 import backend.backend.application.services.UsuarioService;
 import backend.backend.application.services.interfaces.IUsuarioService;
+import backend.backend.domain.repository.UsuarioRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,8 @@ public class UsuarioController {
 
     @Autowired
     private IUsuarioService usuarioService;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
 
     @PostMapping("/salvar")
@@ -52,5 +56,15 @@ public class UsuarioController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Erro ao deletar usuário: " + e.getMessage());
         }
+    }
+
+    @PostMapping("/setup/primeiro-usuario")
+    @Operation(summary = "Salvar primeiro usuário", description = "Endpoint para setup inicial")
+    public ResponseEntity<?> salvarPrimeiroUsuario(@RequestBody UsuarioSalvarRequest usuario) {
+        if (usuarioRepository.count() > 0) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("O setup já foi realizado.");
+        }
+        var retorno = usuarioService.SalvarUsuario(usuario);
+        return ResponseEntity.ok(retorno);
     }
 }
