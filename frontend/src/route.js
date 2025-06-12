@@ -1,7 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import Header from "./components/Header"
-import Footer from "./components/Footer"
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
 import Login from "./pages/Login";
 import Grid from "./components/Grid";
@@ -10,54 +10,74 @@ import MovimentarProduto from "./pages/MovimentarProduto";
 import ListaMovimentacoes from "./pages/ListaMovimentacoes";
 import CadastroUsuario from "./pages/CadastroUsuario";
 import ListaUsuarios from "./pages/ListaUsuarios";
-import { Provider, useSelector } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import store from "./redux/store";
-
-
+import UsuarioProvider from "./contexts/Usuario";
+import Alerta from "./components/Alerta";
+import { hideAlert } from "./redux/uiSlice";
 
 function PrivateRoute({ children }) {
-
-    const token = useSelector(state => state.auth.token);
-
-
-        return token? children: <Navigate to="/login" replace />;
-  
-
+    const token = useSelector((state) => state.auth.token);
+    return token ? children : <Navigate to="/login" replace />;
 }
 
+function LayoutComAlertaERotas() {
+    const alertState = useSelector((state) => state.ui.alert);
+    const dispatch = useDispatch();
 
-export default function AppRoutes() {
+    const handleCloseAlert = () => {
+        dispatch(hideAlert());
+    };
+
     return (
-        <BrowserRouter>
-            <Provider store={store}>
-                <Routes>
-                    <Route path="/Login" element={<Login />} />
-                    <Route path="/*"
-                        element={
-                            <PrivateRoute>
-                                <ProtectedLayout>
+        <>
+            <Routes>
+                <Route path="/Login" element={<Login />} />
+                <Route
+                    path="/*"
+                    element={
+                        <PrivateRoute>
+                            <ProtectedLayout>
+                                 {alertState.isOpen && (
+                <Alerta
+                    message={alertState.message}
+                    type={alertState.type}
+                    onClose={handleCloseAlert}
+                />
+            )}
                                 <Routes>
-                                    <Route path="/" element={<Home />} > </Route>
-                                    <Route path="/Grid" element={<Grid/>} />
+                                    <Route path="/" element={<Home />} />
+                                    <Route path="/Grid" element={<Grid />} />
                                     <Route path="/CadastroProduto" element={<CadastroProduto />} />
                                     <Route path="/CadastroUsuario" element={<CadastroUsuario />} />
                                     <Route path="/MovimentarProduto/:id" element={<MovimentarProduto />} />
                                     <Route path="/ListaMovimentacoes" element={<ListaMovimentacoes />} />
                                     <Route path="/ListaUsuarios" element={<ListaUsuarios />} />
                                 </Routes>
-                                </ProtectedLayout>
-                            </PrivateRoute>
-                        }
-                    />
-                </Routes>
+                            </ProtectedLayout>
+                        </PrivateRoute>
+                    }
+                />
+            </Routes>
+        </>
+    );
+}
+
+export default function AppRoutes() {
+    return (
+        <BrowserRouter>
+            <Provider store={store}>
+                <UsuarioProvider>  
+                    <LayoutComAlertaERotas />
+                </UsuarioProvider>
             </Provider>
         </BrowserRouter>
-    )
+    );
+}
 
-    function ProtectedLayout({ children }) {
-        return (
-
-            <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+function ProtectedLayout({ children }) {
+    return (
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
             <Header />
             <div style={{ display: 'flex', flexGrow: 1 }}>
                 <Sidebar />
@@ -66,13 +86,6 @@ export default function AppRoutes() {
                 </div>
             </div>
             <Footer />
-            
         </div>
-        )
-
-    }
-
-
-
+    );
 }
-

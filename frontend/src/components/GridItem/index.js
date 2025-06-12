@@ -3,10 +3,20 @@ import { useNavigate } from "react-router-dom";
 import ModalConfirmarExclusao from '../modalConfirmarExclusao';
 import { produtoService } from '../../service/produtoService';
 
+
+function formatarParaReais(preco) {
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  }).format(preco);
+}
+
 export default function GridItem({ produto, onExcluirSucesso, onExcluirErro }) {
     const navigate = useNavigate();
     const [modalAberto, setModalAberto] = useState(false);
     const [produtoParaExcluir, setProdutoParaExcluir] = useState(null);
+
+    
     
 
     const movimentar = () => {
@@ -41,7 +51,7 @@ export default function GridItem({ produto, onExcluirSucesso, onExcluirErro }) {
             <tr>
                 <td>{produto.id}</td>
                 <td>{produto.nome}</td>
-                <td>R${produto.preco}</td>
+                <td>{formatarParaReais(produto.preco)}</td>
                 <td>{produto.categoria}</td>
                 <td>{produto.quantidade}</td>
                 <td>

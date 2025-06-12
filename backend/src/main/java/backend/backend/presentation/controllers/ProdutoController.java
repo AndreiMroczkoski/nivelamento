@@ -7,6 +7,7 @@ import backend.backend.application.services.ProdutoService;
 import backend.backend.application.services.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +40,18 @@ public class ProdutoController {
         return produtoService.ListarProduto();
     }
 
+    // NOVO ENDPOINT ADICIONADO
+    @GetMapping("/listarPorId/{id}")
+    @Operation(summary = "Buscar produto por ID", description = "Método responsável por buscar um produto pelo ID")
+    public ResponseEntity<ProdutoListarResponse> buscarPorId(@PathVariable Long id) {
+        try {
+            ProdutoListarResponse produto = produtoService.buscarPorId(id);
+            return ResponseEntity.ok(produto);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @DeleteMapping("/deletar/{id}")
     @Operation(summary = "Deletar Produto", description = "Método responsável por deletar produto")
     public ResponseEntity<?> deletar(@PathVariable Long id) {
@@ -50,4 +63,5 @@ public class ProdutoController {
         }
 
     }
+
 }

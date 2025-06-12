@@ -21,4 +21,9 @@ const deletarProdutos = async (id) => {
 
 };
 
-export const produtoService = {listarProdutos, cadastrarProdutos, deletarProdutos};
+const buscarPorId = async (id) => {
+    const res = await api.get("/produto/listarPorId/"+id);
+    return res.data;
+};
+
+export const produtoService = {listarProdutos, cadastrarProdutos, deletarProdutos, buscarPorId};

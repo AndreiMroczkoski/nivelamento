@@ -1,81 +1,73 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Alerta from "../../components/Alerta";
+import { produtoService } from "../../service/produtoService"; 
+import { movimentacaoService } from "../../service/movimentacaoService";
+import { useUsuarioContext } from "../../contexts/Usuario";
 
 export default function MovimentarProduto() {
     const [quantidade, setQuantidade] = useState("");
     const [tipo, setTipo] = useState("entrada");
     const [produto, setProduto] = useState(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [alerta, setAlerta] = useState(null);
+
     const { id } = useParams();
     const navigate = useNavigate();
-    const [alerta, setAlerta] = useState(null);
-    
+    const { usuario } = useUsuarioContext();
 
     useEffect(() => {
         const buscarProduto = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/produtos/${id}`);
-                setProduto(response.data);
+                const response = await produtoService.buscarPorId(id);
+                setProduto(response);
             } catch (error) {
                 console.error("Erro ao buscar produto:", error);
-                setAlerta({ message: "Erro ao buscar produto.", type: "danger" });
+                setAlerta({ message: "Erro ao carregar dados do produto.", type: "danger" });
             }
         };
 
-        buscarProduto();
+        if (id) {
+            buscarProduto();
+        }
     }, [id]);
 
     const submit = async (e) => {
+        debugger;
         e.preventDefault();
-        if (!produto || !quantidade) {
-            setAlerta({ message: "Preencha todos os campos.", type: "warning" });
+        if (!quantidade || parseInt(quantidade) <= 0) {
+            setAlerta({ message: "Por favor, insira uma quantidade válida.", type: "warning" });
             return;
         }
 
-        const movimento = {
-            produto: produto.nome,
-            quantidade: parseInt(quantidade),
-            tipo,
-            data: new Date().toLocaleString(),
+    
+        setIsSubmitting(true);
+
+        const movimentacaoRequest = {
+            useUsuarioContext: usuario.id,
+            produtoId: parseInt(id),
+            quantidadeMovimentada: parseInt(quantidade),
+            tipo: tipo,
         };
 
         try {
-            
-            await axios.post("http://localhost:3001/movimentacoes", movimento);
 
-            let novaQuantidade = parseInt(produto.quantidade || 0);
-            const qtdMovimento = parseInt(quantidade);
+            await movimentacaoService.registrarMovimentacao(movimentacaoRequest);
 
-            if (tipo === "entrada") {
-                novaQuantidade += qtdMovimento;
-            } else {
-                novaQuantidade -= qtdMovimento;
-                if (novaQuantidade < 0) {
-                    setAlerta({ message: "Quantidade insuficiente em estoque.", type: "warning" });
-                    return;
-                }
-            }
-
-            await axios.put(`http://localhost:3001/produtos/${id}`, {
-                ...produto,
-                quantidade: novaQuantidade.toString(),
-            });
-
-            setAlerta({ message: "Movimentação registrada e estoque atualizado com sucesso!", type: "success" });
-            setQuantidade("");
-            setTipo("entrada");
+            setAlerta({ message: "Movimentação registrada com sucesso!", type: "success" });
             setTimeout(() => navigate("/Grid"), 2000);
+
         } catch (error) {
-            console.error("Erro ao registrar movimentação ou atualizar estoque:", error);
-            setAlerta({ message: "Falha ao registrar movimentação ou atualizar estoque.", type: "danger" });
+            console.error("Erro ao registrar movimentação:", error);
+            const errorMessage = error.response.data|| "Falha ao registrar movimentação.";
+            setAlerta({ message: errorMessage, type: "danger" });
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
-    const fecharAlerta = () => {
-        setAlerta(null);
-    };
+    const fecharAlerta = () => setAlerta(null);
 
     return (
         <div className="container mt-5">
@@ -91,6 +83,7 @@ export default function MovimentarProduto() {
                                 <form onSubmit={submit}>
                                     <div className="mb-4 text-center">
                                         <h4 className="font-weight-bold">{produto.nome}</h4>
+                                        <h6>Estoque Atual: {produto.quantidade}</h6>
                                     </div>
 
                                     <div className="mb-3">
@@ -101,6 +94,7 @@ export default function MovimentarProduto() {
                                             value={quantidade}
                                             onChange={(e) => setQuantidade(e.target.value)}
                                             min="1"
+                                            required
                                         />
                                     </div>
 
@@ -117,8 +111,8 @@ export default function MovimentarProduto() {
                                     </div>
 
                                     <div className="d-grid">
-                                        <button type="submit" className="btn btn-dark">
-                                            Registrar Movimentação
+                                        <button type="submit" className="btn btn-dark" disabled={isSubmitting}>
+                                            {isSubmitting ? "Registrando..." : "Registrar Movimentação"}
                                         </button>
                                     </div>
                                 </form>

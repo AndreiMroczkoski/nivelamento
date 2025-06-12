@@ -2,12 +2,16 @@ package backend.backend.application.services;
 
 import backend.backend.application.object.LoginRequest;
 import backend.backend.domain.entities.Usuario;
+import backend.backend.domain.repository.UsuarioRepository;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -15,7 +19,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 @Service
-public class TokenService {
+public class TokenService{
 
 
     @Value("${spring.expiration_time}")
@@ -61,5 +65,6 @@ public class TokenService {
                 .plusMinutes(expirationTime)
                 .toInstant(ZoneOffset.of("-03:00"));
     }
+
 
 }
