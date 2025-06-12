@@ -15,8 +15,6 @@ export default function MovimentarProduto() {
 
     const { id } = useParams();
     const navigate = useNavigate();
-    
-    // 2. Usando o seu hook para obter os dados do usuário logado
     const { usuario } = useUsuarioContext();
 
     useEffect(() => {

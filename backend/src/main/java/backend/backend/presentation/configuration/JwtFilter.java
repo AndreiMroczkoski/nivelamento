@@ -101,6 +101,11 @@ public class JwtFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
 
+        if ("/auth".equals(request.getRequestURI()) && HttpMethod.POST.matches(request.getMethod())) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         if (HttpMethod.OPTIONS.matches(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);
             filterChain.doFilter(request, response);
@@ -127,7 +132,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
             } catch (Exception e) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                response.getWriter().write("Token inválido ou expirado!");
+                response.getWriter().write("Token inválido!");
                 return;
             }
         }
