@@ -105,6 +105,10 @@ public class JwtFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
+        if ("/usuario/setup/primeiro-usuario".equals(request.getRequestURI()) && HttpMethod.POST.matches(request.getMethod())) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         if (HttpMethod.OPTIONS.matches(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);

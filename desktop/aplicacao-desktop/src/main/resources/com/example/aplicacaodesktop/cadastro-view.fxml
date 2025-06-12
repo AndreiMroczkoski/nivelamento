@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx/21"
+      fx:controller="com.example.aplicacaodesktop.controllers.UsuarioController"
+      style="-fx-background-color: #f4f4f4;" prefWidth="600.0">
+
+  <padding>
+    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+  </padding>
+
+  <Label text="Cadastro Usuário" textFill="#333333">
+    <font>
+      <Font name="Arial Bold" size="24.0"/>
+    </font>
+  </Label>
+
+  <GridPane hgap="10" vgap="10">
+    <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+    </columnConstraints>
+    <rowConstraints>
+      <RowConstraints/>
+      <RowConstraints/>
+      <RowConstraints/>
+      <RowConstraints/>
+      <RowConstraints/>
+    </rowConstraints>
+
+    <TextField fx:id="usuarioField" promptText="Nome do Usuário" GridPane.columnIndex="0"/>
+    <PasswordField fx:id="senhaField" promptText="Senha" GridPane.columnIndex="1"/>
+
+    <TextField fx:id="cepField" promptText="CEP (apenas números)" GridPane.columnSpan="2" GridPane.rowIndex="1"/>
+
+    <TextField fx:id="logradouroField" promptText="Logradouro" editable="false" GridPane.columnSpan="2"
+               GridPane.rowIndex="2"/>
+
+    <TextField fx:id="bairroField" promptText="Bairro" editable="false" GridPane.columnIndex="0"
+               GridPane.rowIndex="3"/>
+    <TextField fx:id="cidadeField" promptText="Cidade" editable="false" GridPane.columnIndex="1"
+               GridPane.rowIndex="3"/>
+
+    <TextField fx:id="estadoField" promptText="Estado" editable="false" GridPane.columnSpan="2"
+               GridPane.rowIndex="4"/>
+  </GridPane>
+
+  <Button onAction="#handleCadastrar" text="Cadastrar Usuário"
+          style="-fx-background-color: #252424; -fx-text-fill: white; -fx-font-weight: bold;"
+          prefWidth="200.0">
+    <font>
+      <Font size="14.0"/>
+    </font>
+  </Button>
+</VBox>
